@@ -1,3 +1,25 @@
-<h1>살아갈 결심</h1>
+<script lang="ts">
+	import { invalidate } from '$app/navigation';
+	import { onMount } from 'svelte';
+	import type { LayoutData } from './$types';
 
-<slot />
+	export let data: LayoutData;
+
+	$: ({ supabase } = data);
+
+	onMount(() => {
+		const { data } = supabase.auth.onAuthStateChange(() => {
+			invalidate('supabase:auth');
+		});
+
+		return () => data.subscription.unsubscribe();
+	});
+</script>
+
+<svelte:head>
+	<title>살아갈 결심</title>
+</svelte:head>
+
+<div class="container" style="padding: 50px 0 100px 0">
+	<slot />
+</div>
