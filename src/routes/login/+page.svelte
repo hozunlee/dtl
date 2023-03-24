@@ -4,6 +4,16 @@
 	import type { PageData } from './$types';
 
 	export let data: PageData;
+
+	let signStat = 'sign_in';
+
+	const toogleSign = (params) => {
+		if (signStat === 'sign_in') {
+			signStat = 'sign_up';
+		} else {
+			signStat = 'sign_in';
+		}
+	};
 </script>
 
 <svelte:head>
@@ -12,23 +22,16 @@
 
 <h1>살아갈결심</h1>
 
-<Auth
-	supabaseClient={data.supabase}
-	view="sign_in"
-	redirectTo={`http://localhost:5173/account`}
-	providers={['google']}
-	showLinks={false}
-	appearance={{ theme: ThemeSupa, style: { input: 'color: black' } }}
-/>
-
 <div class="row flex-center flex">
 	<div class="col-6 form-widget">
 		<Auth
 			supabaseClient={data.supabase}
-			view="magic_link"
-			redirectTo={`${data.url}/logging-in?redirect=/`}
+			view={signStat}
+			redirectTo={`http://localhost:5173/account`}
+			providers={['google']}
 			showLinks={false}
 			appearance={{ theme: ThemeSupa, style: { input: 'color: black' } }}
 		/>
+		<button on:click={toogleSign}>회원가입</button>
 	</div>
 </div>
