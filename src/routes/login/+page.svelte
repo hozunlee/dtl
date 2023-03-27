@@ -2,12 +2,13 @@
 	import { Auth } from '@supabase/auth-ui-svelte';
 	import { ThemeSupa } from '@supabase/auth-ui-shared';
 	import type { PageData } from './$types';
+	import Button from '../lib/component/Button.svelte';
 
 	export let data: PageData;
 
 	let signStat = 'sign_in';
 
-	const toogleSign = (params) => {
+	const toggleSign = (params) => {
 		if (signStat === 'sign_in') {
 			signStat = 'sign_up';
 		} else {
@@ -32,6 +33,6 @@
 			showLinks={false}
 			appearance={{ theme: ThemeSupa, style: { input: 'color: black' } }}
 		/>
-		<button on:click={toogleSign}>회원가입</button>
+		<Button onclick={toggleSign}>Change {signStat === 'sign_in' ? 'sign up' : 'sign in'}</Button>
 	</div>
 </div>
