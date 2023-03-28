@@ -3,17 +3,15 @@
 	import { ThemeSupa } from '@supabase/auth-ui-shared';
 	import type { PageData } from './$types';
 	import Button from '../lib/component/Button.svelte';
+	import { page } from '$app/stores';
 
 	export let data: PageData;
 
+	console.log('$page.url.origin :>> ', $page.url.origin);
 	let signStat = 'sign_in';
 
-	const toggleSign = (params) => {
-		if (signStat === 'sign_in') {
-			signStat = 'sign_up';
-		} else {
-			signStat = 'sign_in';
-		}
+	const toggleSign = () => {
+		signStat === 'sign_in' ? (signStat = 'sign_up') : (signStat = 'sign_in');
 	};
 </script>
 
@@ -28,7 +26,7 @@
 		<Auth
 			supabaseClient={data.supabase}
 			view={signStat}
-			redirectTo={`http://localhost:5173/account`}
+			redirectTo={`http://localhost:5173/main`}
 			providers={['google']}
 			showLinks={false}
 			appearance={{ theme: ThemeSupa, style: { input: 'color: black' } }}
