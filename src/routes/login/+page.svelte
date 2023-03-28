@@ -26,7 +26,7 @@
 		<Auth
 			supabaseClient={data.supabase}
 			view={signStat}
-			redirectTo={`http://localhost:5173/main`}
+			redirectTo={`${$page.url.origin}/main`}
 			providers={['google']}
 			showLinks={false}
 			appearance={{ theme: ThemeSupa, style: { input: 'color: black' } }}
